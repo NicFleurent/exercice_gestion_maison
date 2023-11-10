@@ -38,8 +38,14 @@ namespace Exercice_maison_2
                 case "iListe":
                     mainFrame.Navigate(typeof(Liste));
                     break;
+                case "ListeP":
+                    mainFrame.Navigate(typeof(ListeP));
+                    break;
                 case "iAjout":
                     mainFrame.Navigate(typeof(Ajout));
+                    break;
+                case "AjoutP":
+                    mainFrame.Navigate(typeof(AjoutP));
                     break;
                 default:
                     mainFrame.Navigate(typeof(Liste));

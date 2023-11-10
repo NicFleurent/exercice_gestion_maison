@@ -9,12 +9,13 @@ namespace Exercice_maison_2
 {
     internal class Proprietaire
     {
+        public int Id { get; set; }
         public string Nom { get; set; }
-        public double Prenom { get; set; }
+        public string Prenom { get; set; }
 
         public override string ToString()
         {
-            return $"{Nom} - {Prenom}";
+            return $"{Prenom} - {Nom}";
         }
     }
 }
