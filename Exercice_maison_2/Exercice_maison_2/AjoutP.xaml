@@ -57,8 +57,6 @@
                Text="Veuillez indiquer un nom"
                Visibility="Collapsed"/>
 
-        
-
 
         <Button Grid.Row="3" 
             Grid.ColumnSpan="4" 
