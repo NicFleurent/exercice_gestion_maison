@@ -8,7 +8,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+	<NavigationView PaneDisplayMode="Left"
+                PaneTitle="Centris version Wish"
+                x:Name="navView"
+                IsBackEnabled="True"
+                IsSettingsVisible="False"
+                ItemInvoked="navView_ItemInvoked"
+                BackRequested="navView_BackRequested">
+
+		<NavigationView.MenuItems>
+			<NavigationViewItem Content="Listes des maisons" x:Name="iListe" Icon="People"/>
+			<NavigationViewItem Content="Ajouter une maison" x:Name="iAjout" Icon="Add"/>
+		</NavigationView.MenuItems>
+
+		<Frame x:Name="mainFrame" Grid.Row="1" />
+	</NavigationView>
 </Window>

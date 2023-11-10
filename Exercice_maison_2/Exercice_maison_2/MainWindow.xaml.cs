@@ -26,11 +26,31 @@ namespace Exercice_maison_2
         public MainWindow()
         {
             this.InitializeComponent();
+            mainFrame.Navigate(typeof(Liste));
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private void navView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            myButton.Content = "Clicked";
+            var item = (NavigationViewItem)args.InvokedItemContainer;
+
+            switch (item.Name)
+            {
+                case "iListe":
+                    mainFrame.Navigate(typeof(Liste));
+                    break;
+                case "iAjout":
+                    mainFrame.Navigate(typeof(Ajout));
+                    break;
+                default:
+                    mainFrame.Navigate(typeof(Liste));
+                    break;
+            }
+        }
+
+        private void navView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (mainFrame.CanGoBack)
+                mainFrame.GoBack();
         }
     }
 }
