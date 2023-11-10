@@ -17,9 +17,11 @@
                 BackRequested="navView_BackRequested">
 
 		<NavigationView.MenuItems>
-			<NavigationViewItem Content="Listes des maisons" x:Name="iListe" Icon="People"/>
+			<NavigationViewItem Content="Listes des maisons" x:Name="iListe" Icon="Home"/>
 			<NavigationViewItem Content="Ajouter une maison" x:Name="iAjout" Icon="Add"/>
-		</NavigationView.MenuItems>
+            <NavigationViewItem Content="Listes des propriétaires" x:Name="ListeP" Icon="People"/>
+            <NavigationViewItem Content="Ajouter un propriétaire" x:Name="AjoutP" Icon="Add"/>
+        </NavigationView.MenuItems>
 
 		<Frame x:Name="mainFrame" Grid.Row="1" />
 	</NavigationView>
