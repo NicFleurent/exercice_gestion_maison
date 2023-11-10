@@ -15,6 +15,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -74,7 +75,18 @@
                    Text="Veuillez indiquer une ville"
                    Visibility="Collapsed"/>
 
-        <Button Grid.Row="3" 
+
+
+        <ComboBox Grid.Row="3" 
+                  Grid.Column="1"
+                  Header="Propriétaire"
+                  x:Name="cbProprio"
+                  FontSize="15"
+                  Margin="10 10 10 0"
+                  HorizontalAlignment="Stretch">
+        </ComboBox>
+
+        <Button Grid.Row="4" 
                 Grid.ColumnSpan="4" 
                 x:Name="btAjouter"
                 Content="Ajouter la maison"
