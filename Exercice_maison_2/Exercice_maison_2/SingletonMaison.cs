@@ -36,9 +36,9 @@ namespace Exercice_maison_2
             listeMaisons.Clear();
             try
             {
-                MySqlCommand command = new MySqlCommand();
+                MySqlCommand command = new MySqlCommand("p_get_maisons");
                 command.Connection = con;
-                command.CommandText = "Select * from maison";
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 con.Open();
                 MySqlDataReader r = command.ExecuteReader();
 
@@ -47,7 +47,8 @@ namespace Exercice_maison_2
                     string categorie = (string)r["categorie"];
                     double prix = (double)r["prix"];
                     string ville = (string)r["ville"];
-                    Maison maison = new Maison { Categorie = categorie, Prix = prix, Ville = ville };
+                    string proprio = (string)r["proprio"];
+                    Maison maison = new Maison { Categorie = categorie, Prix = prix, Ville = ville, Proprio = proprio };
                     listeMaisons.Add(maison);
 
                 }
@@ -64,114 +65,33 @@ namespace Exercice_maison_2
 
         }
 
-        public void getListeMaisons(string villeRecherche)
+        public void getListeMaisons(string villeRecherche, string categorieRecherche)
         {
+            if(categorieRecherche == "Aucun")
+            {
+                categorieRecherche = "%";
+            }
+
             listeMaisons.Clear();
             try
             {
-                MySqlCommand commande = new MySqlCommand();
-                commande.Connection = con;
-                commande.CommandText = "Select * from maison WHERE ville LIKE @ville";
-                commande.Parameters.AddWithValue("@ville", "%" + villeRecherche + "%");
+                MySqlCommand command = new MySqlCommand("p_get_maisons_filtre");
+                command.Connection = con;
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("villeRecherche", "%" + villeRecherche + "%");
+                command.Parameters.AddWithValue("categorieRecherche", categorieRecherche);
                 con.Open();
-                commande.Prepare();
-                MySqlDataReader r = commande.ExecuteReader();
+                command.Prepare();
+                MySqlDataReader r = command.ExecuteReader();
 
                 while (r.Read())
                 {
                     string categorie = (string)r["categorie"];
                     double prix = (double)r["prix"];
                     string ville = (string)r["ville"];
+                    string proprio = (string)r["proprio"];
                     Maison maison = new Maison { Categorie = categorie, Prix = prix, Ville = ville };
                     listeMaisons.Add(maison);
-
-                }
-                r.Close();
-                con.Close();
-            }
-            catch (MySqlException ex)
-            {
-                if (con.State == System.Data.ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-
-        }
-
-        public void getListeMaisons(int indexCategorie)
-        {
-            string categorieRecherche;
-            switch (indexCategorie)
-            {
-                case 1: categorieRecherche = "Condo"; break;
-                case 2: categorieRecherche = "Unifamiliale"; break;
-                case 3: categorieRecherche = "Jumulé"; break;
-                default: categorieRecherche = ""; break;
-            }
-            listeMaisons.Clear();
-            try
-            {
-                MySqlCommand commande = new MySqlCommand();
-                commande.Connection = con;
-                commande.CommandText = "Select * from maison WHERE categorie LIKE @categorie";
-                commande.Parameters.AddWithValue("@categorie", "%" + categorieRecherche + "%");
-                con.Open();
-                commande.Prepare();
-                MySqlDataReader r = commande.ExecuteReader();
-
-                while (r.Read())
-                {
-                    string categorie = (string)r["categorie"];
-                    double prix = (double)r["prix"];
-                    string ville = (string)r["ville"];
-                    Maison maison = new Maison { Categorie = categorie, Prix = prix, Ville = ville };
-                    listeMaisons.Add(maison);
-
-                }
-                r.Close();
-                con.Close();
-            }
-            catch (MySqlException ex)
-            {
-                if (con.State == System.Data.ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-
-        }
-
-        public void getListeMaisons(string villeRecherche, int indexCategorie)
-        {
-            string categorieRecherche;
-            switch (indexCategorie)
-            {
-                case 1: categorieRecherche = "Condo"; break;
-                case 2: categorieRecherche = "Unifamiliale"; break;
-                case 3: categorieRecherche = "Jumulé"; break;
-                default: categorieRecherche = ""; break;
-            }
-            listeMaisons.Clear();
-            try
-            {
-                MySqlCommand commande = new MySqlCommand();
-                commande.Connection = con;
-                commande.CommandText = "Select * from maison WHERE ville LIKE @ville AND categorie LIKE @categorie";
-                commande.Parameters.AddWithValue("@ville", "%" + villeRecherche + "%");
-                commande.Parameters.AddWithValue("@categorie", "%" + categorieRecherche + "%");
-                con.Open();
-                commande.Prepare();
-                MySqlDataReader r = commande.ExecuteReader();
-
-                while (r.Read())
-                {
-                    string categorie = (string)r["categorie"];
-                    double prix = (double)r["prix"];
-                    string ville = (string)r["ville"];
-                    Maison maison = new Maison { Categorie = categorie, Prix = prix, Ville = ville };
-                    listeMaisons.Add(maison);
-
                 }
                 r.Close();
                 con.Close();
@@ -193,17 +113,19 @@ namespace Exercice_maison_2
         {
             try
             {
-                MySqlCommand commande = new MySqlCommand();
-                commande.Connection = con;
-                commande.CommandText = $"insert into maison values(null,@categorie,@prix,@ville)";
+                MySqlCommand command = new MySqlCommand("p_ajout_maison");
+                command.Connection = con;
+                command.CommandText = $"insert into maison values(null,@categorie,@prix,@ville)";
+                //command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                commande.Parameters.AddWithValue("@categorie", categorie);
-                commande.Parameters.AddWithValue("@prix", prix);
-                commande.Parameters.AddWithValue("@ville", ville);
+                command.Parameters.AddWithValue("_categorie", categorie);
+                command.Parameters.AddWithValue("_prix", prix);
+                command.Parameters.AddWithValue("_ville", ville);
+                //command.Parameters.AddWithValue("idProprio", idProprio);
 
                 con.Open();
-                commande.Prepare();
-                commande.ExecuteNonQuery();
+                command.Prepare();
+                command.ExecuteNonQuery();
                 con.Close();
 
                 SingletonMaison.getInstance().getListeMaisons();

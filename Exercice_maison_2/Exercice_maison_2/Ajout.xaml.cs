@@ -13,6 +13,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Globalization.NumberFormatting;
+using MySql.Data.MySqlClient;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,6 +29,36 @@ namespace Exercice_maison_2
         {
             this.InitializeComponent();
             SetNumberBoxNumberFormatter();
+
+            MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=1596189-fleurent-nicolas;Uid=1596189;Pwd=1596189;");
+
+            MySqlCommand command = new MySqlCommand();
+            command.Connection = con;
+            command.CommandText = $"select * from proprietaire";
+            try
+            {
+                con.Open();
+                MySqlDataReader r = command.ExecuteReader();
+
+                while (r.Read())
+                {
+                    int id = (int)r["id"];
+                    string nom = (string)r["nom"];
+                    string prenom = (string)r["prenom"];
+                    //Maison maison = new Maison { Categorie = categorie, Prix = prix, Ville = ville, Proprio = proprio };
+                    cbProprio.Items.Add(id + " " + prenom + " " + nom);
+
+                }
+                r.Close();
+                con.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
         }
 
         private void SetNumberBoxNumberFormatter()

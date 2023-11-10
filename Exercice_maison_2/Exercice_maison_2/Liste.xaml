@@ -44,7 +44,7 @@
                  Margin="40 10 40 10"
                  TextChanged="tbVilleFiltre_TextChanged"/>
 
-        <TextBlock Grid.Row="0" x:Name="tblVilles"
+        <TextBlock Grid.Row="3" x:Name="tblVilles"
                    Text="Aucune donnée"
                    HorizontalAlignment="Center"
                    FontSize="25" Foreground="Red" Visibility="Collapsed"
@@ -68,6 +68,10 @@
                            FontSize="15"/>
 
                         <TextBlock Text="{x:Bind Ville, Mode=OneWay}"
+                           Margin="0 10 0 0"
+                           FontSize="15"/>
+
+                        <TextBlock Text="{x:Bind Proprio, Mode=OneWay}"
                            Margin="0 10 0 0"
                            FontSize="15"/>
                     </StackPanel>

@@ -31,12 +31,12 @@ namespace Exercice_maison_2
 
         private void cbCategorieFiltre_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SingletonMaison.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedIndex);
+            SingletonMaison.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedItem.ToString());
         }
 
         private void tbVilleFiltre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SingletonMaison.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedIndex);
+            SingletonMaison.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedItem.ToString());
         }
 
         private void lvListe_SelectionChanged(object sender, SelectionChangedEventArgs e)
