@@ -8,23 +8,23 @@ using MySql.Data.MySqlClient;
 
 namespace Exercice_maison_2
 {
-    internal class SingletonListe
+    internal class SingletonMaison
     {
-        static SingletonListe instance = null;
+        static SingletonMaison instance = null;
         MySqlConnection con;
         ObservableCollection<Maison> listeMaisons;
 
-        public SingletonListe()
+        public SingletonMaison()
         {
             con = new MySqlConnection("Server=cours.cegep3r.info;Database=1596189-fleurent-nicolas;Uid=1596189;Pwd=1596189;");
             listeMaisons = new ObservableCollection<Maison>();
             getListeMaisons();
         }
 
-        public static SingletonListe getInstance()
+        public static SingletonMaison getInstance()
         {
             if (instance == null)
-                instance = new SingletonListe();
+                instance = new SingletonMaison();
 
             return instance;
         }
@@ -206,7 +206,7 @@ namespace Exercice_maison_2
                 commande.ExecuteNonQuery();
                 con.Close();
 
-                SingletonListe.getInstance().getListeMaisons();
+                SingletonMaison.getInstance().getListeMaisons();
             }
             catch (MySqlException ex)
             {

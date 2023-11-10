@@ -86,7 +86,7 @@ namespace Exercice_maison_2
 
             if (!erreurSaisie)
             {
-                SingletonListe.getInstance().ajouter(categorie, prix, ville);
+                SingletonMaison.getInstance().ajouter(categorie, prix, ville);
 
                 this.Frame.Navigate(typeof(Liste));
             }

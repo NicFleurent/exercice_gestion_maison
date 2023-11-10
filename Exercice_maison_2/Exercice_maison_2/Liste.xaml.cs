@@ -26,17 +26,17 @@ namespace Exercice_maison_2
         public Liste()
         {
             this.InitializeComponent();
-            lvListe.ItemsSource = SingletonListe.getInstance().Maisons;
+            lvListe.ItemsSource = SingletonMaison.getInstance().Maisons;
         }
 
         private void cbCategorieFiltre_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SingletonListe.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedIndex);
+            SingletonMaison.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedIndex);
         }
 
         private void tbVilleFiltre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SingletonListe.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedIndex);
+            SingletonMaison.getInstance().getListeMaisons(tbVilleFiltre.Text, cbCategorieFiltre.SelectedIndex);
         }
 
         private void lvListe_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,7 +46,7 @@ namespace Exercice_maison_2
 
         private void lvListe_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (SingletonListe.getInstance().getCount() == 0)
+            if (SingletonMaison.getInstance().getCount() == 0)
                 tblVilles.Visibility = Visibility.Visible;
             else
                 tblVilles.Visibility = Visibility.Collapsed;
